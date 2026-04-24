@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Loader2, Plus, X, Upload, ArrowLeft } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
-import { createProduct } from '@/actions/products';
+import { createProduct } from '@/admin/actions/products';
 
 export default function NewProductPage() {
   const router = useRouter();

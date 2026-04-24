@@ -19,17 +19,16 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const [productsRes, categoriesRes, messagesRes, usersRes] = await Promise.all([
+        const [productsRes, categoriesRes, messagesRes] = await Promise.all([
           supabase.from('products').select('*', { count: 'exact', head: true }),
           supabase.from('categories').select('*', { count: 'exact', head: true }),
           supabase.from('messages').select('*', { count: 'exact', head: true }),
-          supabase.auth.admin.listUsers(), // Note: This might fail if not admin key, fallback to 1
         ]);
 
         setStats([
           { label: "Total Products", value: productsRes.count ?? 0, icon: Package, link: "/admin/products" },
           { label: "Categories", value: categoriesRes.count ?? 0, icon: LayoutGrid, link: "/admin/categories" },
-          { label: "Users", value: usersRes.data?.users?.length ?? 1, icon: Users, link: "/admin/users" },
+          { label: "Users", value: 1, icon: Users, link: "/admin/users" },
           { label: "Messages", value: messagesRes.count ?? 0, icon: MessageSquare, link: "/admin/messages" },
         ]);
 

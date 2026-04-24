@@ -3,9 +3,10 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { LogOut, LayoutDashboard, Package, ArrowLeft, Settings, LayoutGrid, Users, MessageSquare, Image, Search, Shield } from 'lucide-react';
+import { LogOut, LayoutDashboard, Package, ArrowLeft, Settings, LayoutGrid, Users, MessageSquare, Image, Search } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import clsx from 'clsx';
+import { Logo } from '@/components/ui/Logo';
 
 const Sidebar = () => {
   const pathname = usePathname();
@@ -14,7 +15,7 @@ const Sidebar = () => {
 
   const handleLogout = async () => {
     await signOut();
-    router.push('/login');
+    router.push('/admin/login');
   };
 
   const navItems = [
@@ -30,11 +31,8 @@ const Sidebar = () => {
 
   return (
     <aside className="w-64 bg-background border-r border-border fixed inset-y-0 left-0 hidden md:flex flex-col">
-      <div className="p-6 border-b border-border flex items-center gap-3">
-         <div className="p-2 bg-primary/10 rounded-lg text-primary">
-           <Shield size={24} />
-         </div>
-         <span className="font-medium text-lg tracking-tight">Admin Panel</span>
+      <div className="p-6 border-b border-border flex items-center justify-center">
+         <Logo size="md" />
       </div>
       
       <nav className="flex-1 p-6 space-y-2">

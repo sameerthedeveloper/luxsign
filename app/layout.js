@@ -1,7 +1,5 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
 import { AuthProvider } from "@/context/AuthContext";
 
 const geistSans = Geist({
@@ -29,9 +27,7 @@ export default function RootLayout({ children }) {
     >
       <body className="min-h-full flex flex-col bg-background text-foreground selection:bg-accent-blue/30 selection:text-white">
         <AuthProvider>
-          <Navbar />
-          <main className="flex-grow pt-20">{children}</main>
-          <Footer />
+          {children}
         </AuthProvider>
       </body>
     </html>

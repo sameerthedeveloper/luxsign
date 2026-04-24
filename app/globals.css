@@ -16,6 +16,22 @@
   --font-mono: var(--font-geist-mono);
 }
 
+.light-mode {
+  --color-background: #ffffff;
+  --color-foreground: #0f172a;
+  --color-surface: #f8fafc;
+  --color-surface-hover: #f1f5f9;
+  --color-border: #e2e8f0;
+  --color-border-light: #f1f5f9;
+  --color-muted: #64748b;
+  
+  /* Adjust gradients for light mode */
+  ::selection {
+    background: rgba(6, 182, 212, 0.15);
+    color: #06b6d4;
+  }
+}
+
 /* ========== Base Resets ========== */
 * {
   box-sizing: border-box;

@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Plus, Edit, Trash2 } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
-import { deleteProduct } from '@/actions/products';
+import { deleteProduct } from '@/admin/actions/products';
 
 export default function ProductsPage() {
   const [products, setProducts] = useState([]);

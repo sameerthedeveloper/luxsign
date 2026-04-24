@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'next/navigation';
-import { Shield } from 'lucide-react';
+import { Logo } from '@/components/ui/Logo';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -37,9 +37,9 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-secondary/30">
       <div className="bg-background p-8 rounded-2xl border border-border w-full max-w-md space-y-8 animate-fade-in-up">
-        <div className="text-center space-y-4">
-           <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto text-primary">
-             <Shield size={32} />
+        <div className="text-center space-y-6">
+           <div className="flex justify-center mx-auto">
+             <Logo size="lg" />
            </div>
            <h1 className="text-2xl font-medium tracking-tight">
              Admin Portal

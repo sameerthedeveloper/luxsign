@@ -1,34 +1,34 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Cormorant_Garamond, DM_Sans, Bebas_Neue } from "next/font/google";
 import "./globals.css";
-import { AuthProvider } from "@/context/AuthContext";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-display",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const dmSans = DM_Sans({
   subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  variable: "--font-ui",
+});
+
+const bebas = Bebas_Neue({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-accent",
 });
 
 export const metadata = {
-  title: "LuxSign Displays | Premium LED Technology & Video Processors",
-  description:
-    "Industrial-grade LED display solutions, high-performance video processors, and smart controllers for global broadcast, events, and architectural installations.",
-  keywords: "LED Display, Video Processor, LuxSign, Industrial LED, 4K Processor, B2B LED",
+  title: "LuxSign | Neuglass Architecture",
+  description: "Premium LED Technology & Video Processors",
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased dark`}
-    >
-      <body className="min-h-full flex flex-col bg-background text-foreground selection:bg-accent-blue/30 selection:text-white">
-        <AuthProvider>
-          {children}
-        </AuthProvider>
+    <html lang="en" className={`${cormorant.variable} ${dmSans.variable} ${bebas.variable} scroll-smooth`}>
+      <body className="min-h-screen flex flex-col bg-[#0a0a0f] text-[#f0ede8] font-ui antialiased selection:bg-[rgba(201,168,76,0.15)] selection:text-[#c9a84c]">
+        {children}
       </body>
     </html>
   );

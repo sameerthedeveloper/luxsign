@@ -1,74 +1,62 @@
 "use client";
 
-import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Badge } from "@/components/ui/Badge";
+import { Button } from "@/components/ui/Button";
 
 export const ProductCard = ({ product }) => {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      whileHover={{ y: -5 }}
-      className="group relative bg-[#050505] border border-border hover:border-accent-blue/50 transition-all duration-300 overflow-hidden flex flex-col h-full"
+      whileHover={{ y: -10 }}
+      className="glass-card rounded-2xl overflow-hidden group border border-[var(--color-border)] hover:border-[var(--color-gold)] transition-colors duration-300 shadow-lg hover:shadow-[0_0_20px_rgba(201,168,76,0.15)] flex flex-col h-full"
     >
-      {/* Glow Effect on Hover */}
-      <div className="absolute -inset-px bg-gradient-to-r from-accent-orange/20 via-accent-pink/10 to-accent-blue/20 opacity-0 group-hover:opacity-100 transition-opacity blur-xl z-0" />
-
-      {/* Image Container */}
-      <div className="relative aspect-[4/3] w-full overflow-hidden bg-black z-10">
-        <Image
-          src={product.image}
-          alt={product.name}
-          fill
-          className="object-cover group-hover:scale-110 transition-transform duration-700 opacity-80 group-hover:opacity-100"
-        />
-        {product.badge && (
-          <div className="absolute top-4 left-4 z-20">
-            <Badge variant="blue">{product.badge}</Badge>
+      <Link href={`/products/${product.slug}`} className="block relative aspect-square overflow-hidden bg-[var(--color-bg)] p-8">
+        <div className="absolute inset-0 bg-mesh opacity-20 group-hover:opacity-40 transition-opacity" />
+        <motion.div
+          whileHover={{ scale: 1.1 }}
+          transition={{ type: "spring", stiffness: 100, damping: 20 }}
+          className="relative w-full h-full"
+        >
+          <Image
+            src={product.image_url || "/products/display-1.png"}
+            alt={product.name}
+            fill
+            className="object-contain drop-shadow-xl"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          />
+        </motion.div>
+        {product.featured && (
+          <div className="absolute top-4 left-4">
+            <span className="bg-[var(--color-gold)] text-black text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest">
+              Featured
+            </span>
           </div>
         )}
-      </div>
-
-      {/* Content */}
-      <div className="p-6 flex flex-col flex-grow relative z-10 bg-surface">
-        <div className="mb-2">
-          <span className="text-[10px] font-bold text-accent-blue uppercase tracking-[0.2em]">
-            {product.type}
-          </span>
+      </Link>
+      
+      <div className="p-6 flex flex-col flex-grow">
+        <div className="flex justify-between items-start mb-4">
+          <div>
+            <span className="text-[var(--color-gold)] text-xs font-bold uppercase tracking-widest mb-2 block">
+              {product.category}
+            </span>
+            <h3 className="font-display text-2xl text-white line-clamp-1">{product.name}</h3>
+          </div>
         </div>
-        <h3 className="text-lg font-bold text-white mb-2 group-hover:text-accent-blue transition-colors">
-          {product.name}
-        </h3>
-        <p className="text-muted text-xs leading-relaxed mb-6 flex-grow">
-          {product.tagline}
+        
+        <p className="text-[var(--color-text-muted)] text-sm line-clamp-2 mb-6 flex-grow">
+          {product.description}
         </p>
-
-        <div className="flex items-center justify-between pt-4 border-t border-border">
-          <span className="text-xs font-bold text-white uppercase tracking-wider">
-            {product.price}
+        
+        <div className="flex items-center justify-between mt-auto pt-4 border-t border-[var(--color-border)]">
+          <span className="font-accent text-2xl tracking-wider text-white">
+            ${product.price?.toLocaleString() || "TBA"}
           </span>
-          <Link
-            href={`/products/${product.id}`}
-            className="text-[10px] font-bold text-accent-blue uppercase tracking-widest hover:text-white transition-colors flex items-center gap-2 group/link"
-          >
-            Details
-            <svg
-              className="w-3 h-3 group-hover/link:translate-x-1 transition-transform"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M17 8l4 4m0 0l-4 4m4-4H3"
-              />
-            </svg>
+          <Link href={`/products/${product.slug}`}>
+            <Button variant="ghost" size="sm" className="text-[var(--color-gold)] hover:text-white">
+              View Details
+            </Button>
           </Link>
         </div>
       </div>

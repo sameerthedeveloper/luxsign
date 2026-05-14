@@ -1,43 +1,51 @@
-"use client";
+import * as React from "react"
+import { Slot } from "@radix-ui/react-slot"
+import { cva } from "class-variance-authority"
+import { clsx } from "clsx"
+import { twMerge } from "tailwind-merge"
 
-import { motion } from "framer-motion";
+function cn(...inputs) {
+  return twMerge(clsx(inputs))
+}
 
-export const Button = ({
-  children,
-  variant = "primary",
-  size = "md",
-  className = "",
-  ...props
-}) => {
-  const baseStyles =
-    "relative inline-flex items-center justify-center font-medium transition-all duration-200 outline-none disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden group";
+const buttonVariants = cva(
+  "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-gold)] disabled:pointer-events-none disabled:opacity-50",
+  {
+    variants: {
+      variant: {
+        primary:
+          "bg-[var(--color-gold)] text-[#0a0a0f] hover:bg-[#b09340] shadow-[0_0_15px_rgba(201,168,76,0.2)]",
+        outline:
+          "border border-[var(--color-border)] bg-transparent hover:bg-[var(--color-surface)] hover:text-white",
+        ghost: "hover:bg-[var(--color-surface)] hover:text-white",
+        neumorph: "neumorph hover:bg-[rgba(255,255,255,0.02)] active:neumorph-inset",
+        admin_primary: "bg-[#0071e3] text-white hover:bg-[#0077ED] border border-transparent rounded-[10px]",
+        admin_ghost: "text-[#0071e3] hover:bg-[rgba(0,113,227,0.1)] rounded-[10px]",
+      },
+      size: {
+        sm: "h-8 px-3 text-xs",
+        md: "h-10 px-4 py-2",
+        lg: "h-12 px-8 text-base",
+        icon: "h-9 w-9",
+      },
+    },
+    defaultVariants: {
+      variant: "primary",
+      size: "md",
+    },
+  }
+)
 
-  const variants = {
-    primary:
-      "bg-white text-black hover:bg-gray-100 shadow-[0_0_15px_rgba(255,255,255,0.2)] hover:shadow-[0_0_25px_rgba(255,255,255,0.4)]",
-    outline:
-      "bg-transparent text-white border border-border hover:border-white hover:bg-white/5",
-    ghost: "bg-transparent text-muted hover:text-white hover:bg-white/5",
-    accent:
-      "bg-accent-blue text-black font-bold uppercase tracking-wider hover:bg-white hover:text-accent-blue shadow-[0_0_20px_rgba(6,182,212,0.4)] hover:shadow-[0_0_40px_rgba(6,182,212,0.6)] border border-accent-blue",
-    pink: "bg-accent-pink text-white hover:bg-accent-pink/90 shadow-[0_0_15px_rgba(255,45,149,0.3)] hover:shadow-[0_0_25px_rgba(255,45,149,0.5)]",
-    gradient:
-      "text-white bg-gradient-accent hover:opacity-90 shadow-[0_0_20px_rgba(0,207,255,0.3)]",
-  };
-
-  const sizes = {
-    sm: "px-3 py-1.5 text-xs",
-    md: "px-6 py-2.5 text-sm",
-    lg: "px-8 py-3.5 text-base",
-  };
-
+const Button = React.forwardRef(({ className, variant, size, asChild = false, ...props }, ref) => {
+  const Comp = asChild ? Slot : "button"
   return (
-    <motion.button
-      whileTap={{ scale: 0.98 }}
-      className={`${baseStyles} ${variants[variant]} ${sizes[size]} ${className}`}
+    <Comp
+      className={cn(buttonVariants({ variant, size, className }))}
+      ref={ref}
       {...props}
-    >
-      <span className="relative z-10">{children}</span>
-    </motion.button>
-  );
-};
+    />
+  )
+})
+Button.displayName = "Button"
+
+export { Button, buttonVariants }

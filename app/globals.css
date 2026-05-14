@@ -1,35 +1,25 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-background: #000000;
-  --color-foreground: #ffffff;
-  --color-surface: #0a0a0a;
-  --color-surface-hover: #111111;
-  --color-border: #1a1a1a;
-  --color-border-light: #222222;
-  --color-muted: #999999;
-  --color-accent-pink: #d946ef;
-  --color-accent-blue: #06b6d4;
-  --color-accent-yellow: #eab308;
-  --color-accent-orange: #f97316;
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-.light-mode {
-  --color-background: #ffffff;
-  --color-foreground: #0f172a;
-  --color-surface: #f8fafc;
-  --color-surface-hover: #f1f5f9;
-  --color-border: #e2e8f0;
-  --color-border-light: #f1f5f9;
-  --color-muted: #64748b;
+  --color-bg: #0a0a0f;
+  --color-surface: rgba(255, 255, 255, 0.03);
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-gold: #c9a84c;
+  --color-gold-glow: rgba(201, 168, 76, 0.15);
+  --color-text-primary: #f0ede8;
+  --color-text-muted: rgba(240, 237, 232, 0.45);
   
-  /* Adjust gradients for light mode */
-  ::selection {
-    background: rgba(6, 182, 212, 0.15);
-    color: #06b6d4;
-  }
+  --font-display: 'Cormorant Garamond', serif;
+  --font-ui: 'DM Sans', sans-serif;
+  --font-accent: 'Bebas Neue', sans-serif;
+  
+  --color-admin-bg: #f5f5f7;
+  --color-admin-surface: #ffffff;
+  --color-admin-border: #d2d2d7;
+  --color-admin-text: #1d1d1f;
+  --color-admin-muted: #86868b;
+  --color-admin-blue: #0071e3;
+  --font-admin: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
 /* ========== Base Resets ========== */
@@ -42,121 +32,134 @@ html {
 }
 
 body {
-  background-color: var(--color-background);
-  color: var(--color-foreground);
-  font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: var(--font-ui);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Typography Classes */
+.font-display { font-family: var(--font-display); }
+.font-ui { font-family: var(--font-ui); }
+.font-accent { font-family: var(--font-accent); letter-spacing: 0.05em; }
+
+/* Admin Theme Override */
+.admin-theme {
+  background-color: var(--color-admin-bg);
+  color: var(--color-admin-text);
+  font-family: var(--font-admin);
+}
+.admin-theme * {
+  border-color: var(--color-admin-border);
+}
+
 /* ========== Selection ========== */
 ::selection {
-  background: rgba(0, 207, 255, 0.25);
-  color: #ffffff;
+  background: var(--color-gold-glow);
+  color: var(--color-gold);
+}
+
+.admin-theme ::selection {
+  background: rgba(0, 113, 227, 0.2);
+  color: var(--color-admin-blue);
 }
 
 /* ========== Scrollbar ========== */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
 }
-
 ::-webkit-scrollbar-track {
-  background: #0a0a0a;
+  background: var(--color-bg);
 }
-
 ::-webkit-scrollbar-thumb {
-  background: #333;
-  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: rgba(255, 255, 255, 0.2);
 }
 
-/* ========== Glow Utilities ========== */
-.glow-blue {
-  box-shadow: 0 0 20px rgba(6, 182, 212, 0.3), 0 0 60px rgba(6, 182, 212, 0.1);
+.admin-theme ::-webkit-scrollbar-track {
+  background: var(--color-admin-bg);
+}
+.admin-theme ::-webkit-scrollbar-thumb {
+  background: var(--color-admin-border);
 }
 
-.glow-pink {
-  box-shadow: 0 0 20px rgba(217, 70, 239, 0.3), 0 0 60px rgba(217, 70, 239, 0.1);
+/* ========== Neumorphism (Depth/Tactility) ========== */
+.neumorph {
+  background: var(--color-bg);
+  box-shadow: -4px -4px 12px rgba(255, 255, 255, 0.04),
+               4px  4px 12px rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.02);
 }
 
-.glow-yellow {
-  box-shadow: 0 0 20px rgba(234, 179, 8, 0.3), 0 0 60px rgba(234, 179, 8, 0.1);
+.neumorph-inset, .neumorph:active {
+  box-shadow: inset -4px -4px 12px rgba(255, 255, 255, 0.04),
+              inset  4px  4px 12px rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(0, 0, 0, 0.5);
 }
 
-.glow-orange {
-  box-shadow: 0 0 20px rgba(249, 115, 22, 0.3), 0 0 60px rgba(249, 115, 22, 0.1);
+/* ========== Glassmorphism (Layering) ========== */
+.glass-card {
+  background: var(--color-surface);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid var(--color-border);
 }
 
-.text-gradient {
-  background: linear-gradient(135deg, #d946ef, #06b6d4, #eab308);
+.glass-nav {
+  background: rgba(10, 10, 15, 0.7);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* ========== Utilities ========== */
+.glow-gold {
+  box-shadow: 0 0 20px var(--color-gold-glow), 0 0 60px rgba(201, 168, 76, 0.05);
+}
+
+.text-gradient-gold {
+  background: linear-gradient(135deg, #f0ede8, #c9a84c, #8a7333);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-.text-gradient-blue-pink {
-  background: linear-gradient(135deg, #06b6d4, #d946ef);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+/* ========== Animated Mesh & Grain ========== */
+.bg-mesh {
+  background: 
+    radial-gradient(circle at 15% 50%, rgba(201, 168, 76, 0.08), transparent 25%),
+    radial-gradient(circle at 85% 30%, rgba(255, 255, 255, 0.03), transparent 25%);
+  animation: mesh-breathe 15s ease-in-out infinite alternate;
 }
 
-.bg-gradient-accent {
-  background: linear-gradient(135deg, #f97316, #d946ef, #06b6d4);
+@keyframes mesh-breathe {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 100% 100%; }
 }
 
-.bg-gradient-accent-reverse {
-  background: linear-gradient(135deg, #06b6d4, #d946ef, #f97316);
-}
-
-/* ========== Grid Background ========== */
-.grid-background {
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-  background-size: 60px 60px;
-}
-
-/* ========== Glass Effect ========== */
-.glass {
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-/* ========== Pulse Glow Animation ========== */
-@keyframes pulse-glow {
-  0%, 100% {
-    box-shadow: 0 0 20px rgba(6, 182, 212, 0.2);
-  }
-  50% {
-    box-shadow: 0 0 40px rgba(6, 182, 212, 0.4), 0 0 80px rgba(6, 182, 212, 0.1);
-  }
-}
-
-.animate-pulse-glow {
-  animation: pulse-glow 3s ease-in-out infinite;
-}
-
-/* ========== Gradient Border ========== */
-.gradient-border {
+.bg-grain {
   position: relative;
 }
-
-.gradient-border::before {
-  content: '';
+.bg-grain::after {
+  content: "";
   position: absolute;
   inset: 0;
-  border-radius: inherit;
-  padding: 1px;
-  background: linear-gradient(135deg, #f97316, #d946ef, #06b6d4, #eab308);
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask-composite: xor;
-  -webkit-mask-composite: xor;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.04;
   pointer-events: none;
+  z-index: 10;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

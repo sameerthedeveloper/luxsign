@@ -1,39 +1,27 @@
-import React from "react";
+import * as React from "react"
+import { clsx } from "clsx"
+import { twMerge } from "tailwind-merge"
 
-export const Input = ({ label, error, className = "", ...props }) => {
-  return (
-    <div className={`flex flex-col gap-1.5 w-full ${className}`}>
-      {label && (
-        <label className="text-xs font-semibold uppercase tracking-wider text-muted">
-          {label}
-        </label>
-      )}
-      <input
-        className={`bg-surface border border-border px-4 py-3 text-sm focus:border-accent-blue focus:shadow-[0_0_10px_rgba(0,207,255,0.2)] focus:outline-none transition-all duration-200 text-white placeholder:text-muted/50 ${
-          error ? "border-accent-pink" : ""
-        }`}
-        {...props}
-      />
-      {error && <span className="text-[10px] text-accent-pink">{error}</span>}
-    </div>
-  );
-};
+function cn(...inputs) {
+  return twMerge(clsx(inputs))
+}
 
-export const TextArea = ({ label, error, className = "", ...props }) => {
+const Input = React.forwardRef(({ className, type, isAdmin = false, ...props }, ref) => {
   return (
-    <div className={`flex flex-col gap-1.5 w-full ${className}`}>
-      {label && (
-        <label className="text-xs font-semibold uppercase tracking-wider text-muted">
-          {label}
-        </label>
+    <input
+      type={type}
+      className={cn(
+        "flex h-10 w-full rounded-md px-3 py-2 text-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-[var(--color-text-muted)] focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50",
+        isAdmin 
+          ? "border border-[var(--color-admin-border)] bg-white text-[var(--color-admin-text)] focus-visible:ring-2 focus-visible:ring-[var(--color-admin-blue)] rounded-[10px]"
+          : "border border-[var(--color-border)] bg-[rgba(0,0,0,0.5)] text-white focus-visible:border-[var(--color-gold)] focus-visible:ring-1 focus-visible:ring-[var(--color-gold)]",
+        className
       )}
-      <textarea
-        className={`bg-surface border border-border px-4 py-3 text-sm focus:border-accent-blue focus:shadow-[0_0_10px_rgba(0,207,255,0.2)] focus:outline-none transition-all duration-200 text-white placeholder:text-muted/50 min-h-[120px] resize-none ${
-          error ? "border-accent-pink" : ""
-        }`}
-        {...props}
-      />
-      {error && <span className="text-[10px] text-accent-pink">{error}</span>}
-    </div>
-  );
-};
+      ref={ref}
+      {...props}
+    />
+  )
+})
+Input.displayName = "Input"
+
+export { Input }

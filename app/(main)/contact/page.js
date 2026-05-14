@@ -1,161 +1,68 @@
-"use client";
-
-import React, { useState } from "react";
-import { Input, TextArea } from "@/components/ui/Input";
+import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
-import { motion } from "framer-motion";
+
+export const metadata = {
+  title: "Contact | LuxSign",
+};
 
 export default function ContactPage() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "Business Inquiry",
-    message: "",
-  });
-
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Simulate API call
-    console.log("Form submitted:", formData);
-    setSubmitted(true);
-  };
-
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <section className="pt-32 pb-16 border-b border-border bg-surface/50">
-        <div className="container mx-auto px-6">
-          <span className="text-accent-blue font-bold text-xs uppercase tracking-[0.3em] block mb-4">
-            Connect With Us
-          </span>
-          <h1 className="text-5xl md:text-8xl font-black text-white tracking-tighter uppercase leading-[0.9]">
-            Technical <br />
-            <span className="text-muted">Partnership</span>
+    <div className="min-h-screen bg-[var(--color-bg)] pt-24 pb-24 relative overflow-hidden">
+      {/* Animated Orbs */}
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[var(--color-gold)] rounded-full mix-blend-screen filter blur-[128px] opacity-10 animate-pulse-glow" />
+      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[var(--color-gold)] rounded-full mix-blend-screen filter blur-[128px] opacity-10 animate-pulse-glow" style={{ animationDelay: '2s' }} />
+      <div className="absolute inset-0 bg-grain pointer-events-none" />
+
+      <div className="container mx-auto px-6 relative z-10 grid lg:grid-cols-2 gap-16 items-center">
+        <div>
+          <h1 className="font-display text-5xl md:text-7xl text-white mb-6">
+            LET'S BUILD <span className="text-gradient-gold">SOMETHING</span> EXTRAORDINARY
           </h1>
-        </div>
-      </section>
-
-      <section className="py-24">
-        <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-24">
-            {/* Form Side */}
+          <p className="text-[var(--color-text-muted)] text-lg mb-12 max-w-lg">
+            Our engineering team is ready to assist with custom architectural installations, broadcast studio design, and global fleet deployments.
+          </p>
+          
+          <div className="space-y-8">
             <div>
-              {submitted ? (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="bg-surface border border-accent-blue/30 p-12 text-center"
-                >
-                  <div className="w-16 h-16 bg-accent-blue/10 rounded-full flex items-center justify-center text-accent-blue mx-auto mb-6">
-                    <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                    </svg>
-                  </div>
-                  <h2 className="text-2xl font-bold text-white mb-4 uppercase tracking-tight">Transmission Successful</h2>
-                  <p className="text-muted mb-8 leading-relaxed">
-                    Our technical sales engineering team has received your inquiry. 
-                    Expect a response within 24 business hours.
-                  </p>
-                  <Button variant="outline" onClick={() => setSubmitted(false)}>Send Another Message</Button>
-                </motion.div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-8">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <Input
-                      label="Full Name"
-                      placeholder="John DOE"
-                      required
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    />
-                    <Input
-                      label="Corporate Email"
-                      type="email"
-                      placeholder="john@company.com"
-                      required
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    />
-                  </div>
-                  <Input
-                    label="Subject"
-                    placeholder="Project Inquiry"
-                    required
-                    value={formData.subject}
-                    onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                  />
-                  <TextArea
-                    label="Project Requirements"
-                    placeholder="Provide details about your LED installation or processing needs..."
-                    required
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  />
-                  <Button variant="accent" size="lg" className="w-full" type="submit">
-                    Send Transmission
-                  </Button>
-                </form>
-              )}
+              <h4 className="text-white font-bold uppercase tracking-widest text-sm mb-2">Global Headquarters</h4>
+              <p className="text-[var(--color-text-muted)]">100 Innovation Drive<br/>Tech Park, CA 94043</p>
             </div>
-
-            {/* Info Side */}
-            <div className="space-y-16">
-              <div>
-                <h3 className="text-xs font-bold text-accent-blue uppercase tracking-[0.4em] mb-8">Global Headquarters</h3>
-                <div className="space-y-6">
-                  <div>
-                    <h4 className="text-white font-bold uppercase text-sm mb-2">Shenzhen R&D Center</h4>
-                    <p className="text-muted text-sm leading-relaxed">
-                      Building 4, Hi-Tech Innovation Park,<br />
-                      Nanshan District, Shenzhen, China
-                    </p>
-                  </div>
-                  <div>
-                    <h4 className="text-white font-bold uppercase text-sm mb-2">Los Angeles Sales Office</h4>
-                    <p className="text-muted text-sm leading-relaxed">
-                      888 Professional Blvd,<br />
-                      Irvine, CA 92618, USA
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <h3 className="text-xs font-bold text-accent-blue uppercase tracking-[0.4em] mb-8">Direct Channels</h3>
-                <div className="space-y-4">
-                  <div className="flex items-center gap-4 group">
-                    <div className="w-8 h-8 rounded bg-surface border border-border flex items-center justify-center text-muted group-hover:text-white transition-colors">
-                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-                    </div>
-                    <div>
-                      <span className="block text-[10px] text-muted font-bold uppercase tracking-widest">Email</span>
-                      <span className="text-white font-medium">engineering@luxsign.tech</span>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-4 group">
-                    <div className="w-8 h-8 rounded bg-surface border border-border flex items-center justify-center text-muted group-hover:text-white transition-colors">
-                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-                    </div>
-                    <div>
-                      <span className="block text-[10px] text-muted font-bold uppercase tracking-widest">Engineering Line</span>
-                      <span className="text-white font-medium">+1 (800) LUX-SIGN</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="p-8 bg-surface border-l-4 border-accent-blue">
-                <h4 className="text-white font-bold uppercase text-xs mb-3 tracking-widest">Support Notice</h4>
-                <p className="text-muted text-xs leading-relaxed">
-                  Existing clients with premium support contracts can bypass this form by using their dedicated portal login or contacting their assigned field engineer directly.
-                </p>
-              </div>
+            <div>
+              <h4 className="text-white font-bold uppercase tracking-widest text-sm mb-2">Direct Contact</h4>
+              <p className="text-[var(--color-text-muted)]">sales@luxsign.com<br/>+1 (800) 555-0199</p>
             </div>
           </div>
         </div>
-      </section>
+
+        <div className="glass-card p-10 rounded-3xl border border-[var(--color-border)] shadow-2xl">
+          <form className="space-y-6">
+            <div className="grid grid-cols-2 gap-6">
+              <div>
+                <label className="block text-sm font-medium text-[var(--color-text-muted)] mb-2">First Name</label>
+                <Input type="text" placeholder="John" />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-[var(--color-text-muted)] mb-2">Last Name</label>
+                <Input type="text" placeholder="Doe" />
+              </div>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-[var(--color-text-muted)] mb-2">Email Address</label>
+              <Input type="email" placeholder="john@company.com" />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-[var(--color-text-muted)] mb-2">Project Details</label>
+              <textarea 
+                className="flex w-full rounded-md px-3 py-2 text-sm transition-colors placeholder:text-[var(--color-text-muted)] focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 border border-[var(--color-border)] bg-[rgba(0,0,0,0.5)] text-white focus-visible:border-[var(--color-gold)] focus-visible:ring-1 focus-visible:ring-[var(--color-gold)] min-h-[150px]"
+                placeholder="Tell us about your requirements..."
+              />
+            </div>
+            <Button variant="neumorph" className="w-full text-lg tracking-widest font-bold py-6">
+              SEND INQUIRY
+            </Button>
+          </form>
+        </div>
+      </div>
     </div>
   );
 }

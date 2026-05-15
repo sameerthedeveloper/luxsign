@@ -72,11 +72,7 @@ export const Navbar = () => {
               0
             </span>
           </Link>
-          <Link href="/auth">
-            <Button variant="primary" size="sm" className="ml-4 font-accent text-lg tracking-wider">
-              Client Portal
-            </Button>
-          </Link>
+
         </div>
 
         {/* Mobile Toggle */}
@@ -122,9 +118,7 @@ export const Navbar = () => {
                 <Link href="/cart" onClick={() => setMobileMenuOpen(false)} className="flex-1">
                   <Button variant="outline" className="w-full">Cart (0)</Button>
                 </Link>
-                <Link href="/auth" onClick={() => setMobileMenuOpen(false)} className="flex-1">
-                  <Button variant="primary" className="w-full">Portal</Button>
-                </Link>
+
               </div>
             </div>
           </motion.div>

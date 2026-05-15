@@ -45,7 +45,7 @@ export const Footer = () => {
           <div>
             <h4 className="font-accent text-xl tracking-wider text-white mb-6">Company</h4>
             <ul className="space-y-4">
-              {['About Us', 'Contact', 'Support', 'Client Portal'].map((link) => (
+              {['About Us', 'Contact', 'Support'].map((link) => (
                 <li key={link}>
                   <Link href={`/${link.toLowerCase().replace(' ', '-')}`} className="text-sm text-[var(--color-text-muted)] hover:text-[var(--color-gold)] transition-colors">
                     {link}
